@@ -6,8 +6,8 @@ type Cell struct {
 	Value string
 }
 
-func NewCell(val string) Cell {
-	return Cell{val}
+func NewCell() Cell {
+	return Cell{"_"}
 }
 
 func (cell Cell) Print() {

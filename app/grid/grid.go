@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/vaibhawj/tictactoe/cell"
-	"github.com/vaibhawj/tictactoe/player"
+	"github.com/vaibhawj/tictactoe/app/cell"
+	"github.com/vaibhawj/tictactoe/app/player"
 )
 
 type Grid struct {
@@ -18,9 +18,9 @@ type Grid struct {
 func NewGrid() *Grid {
 	return &Grid{
 		[3][3]cell.Cell{
-			{cell.NewCell("_"), cell.NewCell("_"), cell.NewCell("_")},
-			{cell.NewCell("_"), cell.NewCell("_"), cell.NewCell("_")},
-			{cell.NewCell("_"), cell.NewCell("_"), cell.NewCell("_")}}}
+			{cell.NewCell(), cell.NewCell(), cell.NewCell()},
+			{cell.NewCell(), cell.NewCell(), cell.NewCell()},
+			{cell.NewCell(), cell.NewCell(), cell.NewCell()}}}
 }
 
 func (grid Grid) Print() {

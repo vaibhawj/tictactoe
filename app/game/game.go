@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/vaibhawj/tictactoe/grid"
-	"github.com/vaibhawj/tictactoe/player"
+	"github.com/vaibhawj/tictactoe/app/grid"
+	"github.com/vaibhawj/tictactoe/app/player"
 )
 
 func InitializePlayer(i int, symbol string) player.Player {

@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/vaibhawj/tictactoe/game"
-	"github.com/vaibhawj/tictactoe/player"
+	"github.com/vaibhawj/tictactoe/app/game"
+	"github.com/vaibhawj/tictactoe/app/player"
 )
 
 func main() {
