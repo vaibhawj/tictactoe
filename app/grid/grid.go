@@ -1,14 +1,9 @@
 package grid
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
 
 	"github.com/vaibhawj/tictactoe/app/cell"
-	"github.com/vaibhawj/tictactoe/app/player"
 )
 
 type Grid struct {
@@ -32,16 +27,11 @@ func (grid Grid) Print() {
 	}
 }
 
-func (grid Grid) validate(x int64, y int64) (status bool, msg string) {
-	status = true
-	if !grid.cells[x][y].IsEmpty() {
-		status = false
-		msg = "This place is already filled"
-	}
-	return
+func (grid Grid) IsEmpty(x int64, y int64) bool {
+	return grid.cells[x][y].IsEmpty()
 }
 
-func (grid *Grid) assign(x int64, y int64, symbol string) {
+func (grid *Grid) Assign(x int64, y int64, symbol string) {
 	grid.cells[x][y].Assign(symbol)
 }
 
@@ -109,37 +99,4 @@ func (grid Grid) Check() (gameOver bool, winner string) {
 	gameOver = true
 
 	return
-}
-
-func (grid *Grid) Move(p player.Player) {
-	for true {
-		fmt.Printf("%v's turn (%v). Enter coordinates eg. 00, 01 or 22\n", p.GetName(), p.GetSymbol())
-		reader := bufio.NewReader(os.Stdin)
-		choice, _ := reader.ReadString('\n')
-
-		x, err := strconv.ParseInt(strings.Split(choice, "")[0], 10, 8)
-		if err != nil {
-			fmt.Println("Invalid input")
-			continue
-		}
-		y, err := strconv.ParseInt(strings.Split(choice, "")[1], 10, 8)
-		if err != nil {
-			fmt.Println("Invalid input")
-			continue
-		}
-
-		if (x < 0 || x > 2) || (y < 0 || y > 2) {
-			fmt.Println("Invalid input")
-			continue
-		}
-
-		status, msg := grid.validate(x, y)
-		if !status {
-			fmt.Println(msg)
-			continue
-		}
-
-		grid.assign(x, y, p.GetSymbol())
-		break
-	}
 }

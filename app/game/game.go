@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/vaibhawj/tictactoe/app/grid"
@@ -19,13 +20,13 @@ func InitializePlayer(i int, symbol string) player.Player {
 }
 
 type game struct {
-	grid    grid.Grid
+	grid    *grid.Grid
 	players [2]player.Player
 }
 
 func NewGame(players [2]player.Player) *game {
 	return &game{
-		*grid.NewGrid(),
+		grid.NewGrid(),
 		players}
 }
 
@@ -47,7 +48,7 @@ func (game game) Start() string {
 
 	grid.Print()
 	for true {
-		grid.Move(players[0])
+		game.move(players[0])
 		grid.Print()
 		gameOver, winningSymbol := grid.Check()
 
@@ -55,7 +56,7 @@ func (game game) Start() string {
 			return game.winnerFromSymbol(winningSymbol)
 		}
 
-		grid.Move(players[1])
+		game.move(players[1])
 		grid.Print()
 		gameOver, winningSymbol = grid.Check()
 
@@ -64,4 +65,37 @@ func (game game) Start() string {
 		}
 	}
 	return ""
+}
+
+func (game *game) move(p player.Player) {
+	grid := game.grid
+	for true {
+		fmt.Printf("%v's turn (%v). Enter coordinates eg. 00, 01 or 22\n", p.GetName(), p.GetSymbol())
+		reader := bufio.NewReader(os.Stdin)
+		choice, _ := reader.ReadString('\n')
+
+		x, err := strconv.ParseInt(strings.Split(choice, "")[0], 10, 8)
+		if err != nil {
+			fmt.Println("Invalid input")
+			continue
+		}
+		y, err := strconv.ParseInt(strings.Split(choice, "")[1], 10, 8)
+		if err != nil {
+			fmt.Println("Invalid input")
+			continue
+		}
+
+		if (x < 0 || x > 2) || (y < 0 || y > 2) {
+			fmt.Println("Invalid input")
+			continue
+		}
+
+		if !grid.IsEmpty(x, y) {
+			fmt.Println("This place is already filled")
+			continue
+		}
+
+		grid.Assign(x, y, p.GetSymbol())
+		break
+	}
 }

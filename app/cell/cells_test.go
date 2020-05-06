@@ -1,4 +1,4 @@
-package tests
+package cell_test
 
 import (
 	"testing"
