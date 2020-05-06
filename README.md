@@ -6,7 +6,7 @@ git clone https://github.com/vaibhawj/tictactoe.git $GOPATH/src/github.com/vaibh
 
 #### Unit tests
 cd into project root
-go test ./... -cover -coverprofile coverage.out; go tool cover -func coverage.out
+go test ./... -cover -coverprofile coverage.out; go tool cover -func coverage.out; go tool cover -html=coverage.out
 
 #### Run
 go run github.com/vaibhawj/tictactoe
