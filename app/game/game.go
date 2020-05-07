@@ -47,7 +47,7 @@ func (game game) Start() string {
 	players := game.players
 
 	grid.Print()
-	for true {
+	for {
 		game.move(players[0])
 		grid.Print()
 		gameOver, winningSymbol := grid.Check()
@@ -64,12 +64,11 @@ func (game game) Start() string {
 			return game.winnerFromSymbol(winningSymbol)
 		}
 	}
-	return ""
 }
 
 func (game *game) move(p player.Player) {
 	grid := game.grid
-	for true {
+	for {
 		fmt.Printf("%v's turn (%v). Enter coordinates eg. 00, 01 or 22\n", p.GetName(), p.GetSymbol())
 		reader := bufio.NewReader(os.Stdin)
 		choice, _ := reader.ReadString('\n')
